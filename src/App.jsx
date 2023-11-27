@@ -71,7 +71,7 @@ class App extends Component {
   };
 
   loadMoreHandler = () => {
-    const { searchQuery, page, loadMoreActive } = this.state;
+    const { searchQuery, loadMoreActive } = this.state;
 
     if (!loadMoreActive) {
       return;
