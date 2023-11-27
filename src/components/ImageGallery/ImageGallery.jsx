@@ -14,7 +14,7 @@ function GalleryList({ imagesArray, openModal }) {
 
 GalleryList.propTypes = {
   imagesArray: PropTypes.array.isRequired,
-  openModal: PropTypes.func.isRequired,
+  openModal: PropTypes.func,
 };
 
 export default GalleryList;
