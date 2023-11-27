@@ -1,9 +1,12 @@
 import React from 'react';
+//import { nanoid } from 'nanoid';
 
 function ImageGalleryItem({ image, openModal }) {
   const handleClick = () => {
     openModal(image.largeImageURL);
   };
+
+   //const uniqueKey = nanoid();
 
   return (
     <div key={image.id} className="photo-one-card card" style={{ width: '18rem' }}>
