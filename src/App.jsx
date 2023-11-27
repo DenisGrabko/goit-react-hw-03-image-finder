@@ -5,7 +5,7 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
 import Searchbar from '../src/components/SearchBar/SearchBar';
 import Loader from './components/Loader/Loader';
-import Modal from './components/Modal/Modal';
+//import Modal from './components/Modal/Modal';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 class App extends Component {
