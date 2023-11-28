@@ -71,7 +71,7 @@ class App extends Component {
   )};
 
   render() {
-    const { searchQuery, imagesArray, isLoading, showModal, currentImageUrl, loadMoreActive } = this.state;
+    const { imagesArray, isLoading, showModal, currentImageUrl, loadMoreActive } = this.state;
 
     return (
       <div className="app">
