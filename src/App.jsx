@@ -23,7 +23,7 @@ class App extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.page !== this.state.page ||
       prevState.searchQuery !== this.state.searchQuery) {
-      this.fetchItemsByTag(this.state.searchQuery, this.state.page);
+      this.fetchImages(this.state.searchQuery, this.state.page);
     }
   }
 
@@ -36,28 +36,21 @@ class App extends Component {
   };
 
   formSubmitHandler = (searchQuery) => {
-    this.setState({ isLoading: true, searchQuery, page: 1 });
-
-    if (searchQuery.trim() === '') {
-      Notiflix.Notify.failure('Empty field');
-      return;
-    }    
-    
-    this.fetchItemsByTag(searchQuery, 1);
+    this.setState({ isLoading: true, searchQuery, page: 1, imagesArray: [] });    
   };
 
-  fetchItemsByTag = (searchQuery, page) => {
+   fetchImages = (searchQuery, page) => {
     fetchItemsByTag(searchQuery, page)
       .then((newImagesArray) => {
         if (newImagesArray.length === 0) {
           Notiflix.Notify.failure('No images found.');
         } else {
           this.setState((prevState) => {
-            const nextState = {
-              imagesArray: page === 1 ? newImagesArray : [...prevState.imagesArray, ...newImagesArray],
+            return {
+              imagesArray: [...prevState.imagesArray, ...newImagesArray],
               loadMoreActive: newImagesArray.length === 12,
             };
-            return nextState;
+            
           });
         }
       })
@@ -68,21 +61,14 @@ class App extends Component {
       .finally(() => {
         this.setState({ isLoading: false });
       });
-  };
+  };  
+  
 
   loadMoreHandler = () => {
-    const { searchQuery, loadMoreActive } = this.state;
-
-    if (!loadMoreActive) {
-      return;
-    }
-
     this.setState((prevState) => ({
       page: prevState.page + 1,
-    }), () => {
-      this.fetchItemsByTag(searchQuery, this.state.page);
-    });
-  };
+    })      
+  )};
 
   render() {
     const { searchQuery, imagesArray, isLoading, showModal, currentImageUrl, loadMoreActive } = this.state;
@@ -93,8 +79,6 @@ class App extends Component {
         <SearchBar formSubmitHandler={this.formSubmitHandler} />
         <ImageGallery imagesArray={imagesArray} openModal={this.openModal} />
         <Button
-          searchQuery={searchQuery}
-          page={this.state.page}
           loadMoreActive={loadMoreActive}
           imagesArray={this.state.imagesArray}
           loadMoreHandler={this.loadMoreHandler}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Notiflix from 'notiflix';
 
 class SearchBar extends Component {
   state = {
@@ -6,12 +7,15 @@ class SearchBar extends Component {
   };
 
   handleChange = (e) => {
-    this.setState({ searchQuery: e.target.value });
+    this.setState({ searchQuery: e.target.value });    
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-
+    if (this.state.searchQuery.trim() === '') {
+      Notiflix.Notify.failure('Empty field');
+      return;
+    } 
     this.props.formSubmitHandler(this.state.searchQuery);
   };
 
