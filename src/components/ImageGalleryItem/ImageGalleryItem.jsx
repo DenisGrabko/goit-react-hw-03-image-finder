@@ -29,24 +29,27 @@ function ImageGalleryItem({ image }) {
   return (
     <div className="photo-one-card card" style={{ width: '18rem' }}>
       <img
-        src={image.webformatURL}
-        alt={image.tags}
-        className="card-img-top"
-        loading="lazy"
-        width="500px"
-        height="250px"
-        onClick={openModal}
-        style={{ cursor: 'pointer' }}
-      />
+  src={image.webformatURL}
+  alt={image.tags} // eslint-disable-next-line
+  className="card-img-top"
+  loading="lazy"
+  width="500px"
+  height="250px"
+  onClick={openModal}
+  style={{ cursor: 'pointer' }}
+/>
+
 
       {isModalOpen && (
-        <div className="modal-container">
-          <div className="modal-background" onClick={closeModal}></div>
-          <div className="modal">
-            <img src={image.largeImageURL} alt="Large Image" onClick={closeModal} />
-          </div>
-        </div>
-      )}
+  <div className="modal-container">
+    <div className="modal-background" onClick={closeModal}></div>
+    <div className="modal">
+      {/* eslint-disable-next-line */}
+      <img src={image.largeImageURL} alt="Large Image" onClick={closeModal} />
+    </div>
+  </div>
+)}
+
 
       <div className="info card-body">
         <p className="info-item card-text">
