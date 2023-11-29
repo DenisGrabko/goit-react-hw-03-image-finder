@@ -1,25 +1,53 @@
-import React from 'react';
-//import { nanoid } from 'nanoid';
+import React, { useEffect, useState } from 'react';
+import './ImageGalleryItem.css'; // Создайте файл ImageGalleryItem.css для стилей
 
-function ImageGalleryItem({ image, openModal }) {
-  const handleClick = () => {
-    openModal(image.largeImageURL);
+function ImageGalleryItem({ image }) {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
   };
 
-   //const uniqueKey = nanoid();
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.code === 'Escape') {
+        closeModal();
+      }
+    }
+      document.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      }
+   
+  }, []);  
 
   return (
-    <div key={image.id} className="photo-one-card card" style={{ width: '18rem' }}>
-      <a href={image.webformatURL} data-lightbox="image" onClick={handleClick}>
-        <img
-          src={image.webformatURL}
-          alt={image.tags}
-          className="card-img-top"
-          loading="lazy"
-          width="500px"
-          height="250px"
-        />
-      </a>
+    <div className="photo-one-card card" style={{ width: '18rem' }}>
+      <img
+        src={image.webformatURL}
+        alt={image.tags}
+        className="card-img-top"
+        loading="lazy"
+        width="500px"
+        height="250px"
+        onClick={openModal}
+        style={{ cursor: 'pointer' }}
+      />
+
+      {isModalOpen && (
+        <div className="modal-container">
+          <div className="modal-background" onClick={closeModal}></div>
+          <div className="modal">
+            <img src={image.largeImageURL} alt="Large Image" onClick={closeModal} />
+          </div>
+        </div>
+      )}
+
       <div className="info card-body">
         <p className="info-item card-text">
           <b>Likes:</b> {image.likes}
