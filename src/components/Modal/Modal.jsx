@@ -17,21 +17,23 @@ const Modal = ({ imageURL, onClose, image }) => {
         instance.close();
       }
     };
-
-    const handleClose = () => {
-      instance.close();
-      onClose();
-    };
+      
+      const handleBackgroundClick = (e) => {
+          if (e.target.classList.contains('modal-background')) {
+              instance.close();
+              onClose();
+          }          
+      };      
 
     instance.show();
 
     document.addEventListener('keydown', handleKeyDown);
-    instance.element().addEventListener('click', handleClose);
+    instance.element().addEventListener('click', handleBackgroundClick);
 
     
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      instance.element().removeEventListener('click', handleClose);
+      instance.element().removeEventListener('click', handleBackgroundClick);
       instance.close();
     };
   }, [imageURL, onClose, image]);
