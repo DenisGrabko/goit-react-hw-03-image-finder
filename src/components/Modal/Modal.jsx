@@ -1,5 +1,5 @@
 // Modal.jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as basicLightbox from 'basiclightbox';
 
 const Modal = ({ imageURL, onClose }) => {
