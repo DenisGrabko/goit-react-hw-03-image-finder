@@ -4,12 +4,10 @@ import './Modal.css';
 class Modal extends Component {
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
-    document.addEventListener('click', this.handleBackgroundClick);
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown);
-    document.removeEventListener('click', this.handleBackgroundClick);
   }
 
   handleKeyDown = (e) => {
