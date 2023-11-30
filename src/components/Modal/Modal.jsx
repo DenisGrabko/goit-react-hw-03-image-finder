@@ -29,8 +29,9 @@ class Modal extends Component {
 
     return (
       <div className="modal-background" onClick={this.handleBackgroundClick}>
-        <div className="modal">
-          <img src={imageURL} alt="Large Image"  />
+            <div className="modal">
+                { /* eslint-disable-next-line */ }
+          <img src={imageURL} alt="Large Image"  />  
         </div>
       </div>
     );
