@@ -1,44 +1,40 @@
-import { useEffect } from 'react';
-import * as basicLightbox from 'basiclightbox';
+import React, { Component } from 'react';
 import './Modal.css';
 
-const Modal = ({ imageURL, onClose, image }) => {
-  useEffect(() => {
-      const instance = basicLightbox.create(`
-  <div class="modal-background">
-    <div class="modal">
-      <img src="${imageURL}" alt="Large Image" />
-    </div>
-  </div>
-`);
-      
-    const handleKeyDown = (e) => {
-      if (e.code === 'Escape') {
-        instance.close();
-      }
-    };
-      
-      const handleBackgroundClick = (e) => {
-          if (e.target.classList.contains('modal-background')) {
-              instance.close();
-              onClose();
-          }          
-      };      
+class Modal extends Component {
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('click', this.handleBackgroundClick);
+  }
 
-    instance.show();
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('click', this.handleBackgroundClick);
+  }
 
-    document.addEventListener('keydown', handleKeyDown);
-    instance.element().addEventListener('click', handleBackgroundClick);
+  handleKeyDown = (e) => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
 
-    
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      instance.element().removeEventListener('click', handleBackgroundClick);
-      instance.close();
-    };
-  }, [imageURL, onClose, image]);
+  handleBackgroundClick = (e) => {
+    if (e.target.classList.contains('modal-background')) {
+      this.props.onClose();
+    }
+  };
 
-  return null;
-};
+  render() {
+    const { imageURL } = this.props;
+
+    return (
+      <div className="modal-background" onClick={this.handleBackgroundClick}>
+        <div className="modal">
+          <img src={imageURL} alt="Large Image"  />
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Modal;

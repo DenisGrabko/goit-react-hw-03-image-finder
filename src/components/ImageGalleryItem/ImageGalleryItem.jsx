@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from '../Modal/Modal'; // Импортируем компонент Modal
+import Modal from '../Modal/Modal'; 
 
 function ImageGalleryItem({ image }) {
   const [isModalOpen, setModalOpen] = useState(false);
